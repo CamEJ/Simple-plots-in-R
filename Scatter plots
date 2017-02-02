@@ -1,6 +1,6 @@
 # Scatter plots
 
-# Example data: (tab separated)
+# Example data: "scatter.txt" (tab separated)
 Week	pH	Treatment	Location
 0	5.58	Zero	Soil
 2	5.245	Zero	Rhizo
