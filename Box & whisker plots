@@ -1,0 +1,80 @@
+# Box and whisker plots
+
+# Libraries needed:
+
+library(ggplot2)
+library(grid)
+
+# example data: (scatter.txt)
+
+	Week	pH	Treatment	Location
+1	0	5.58	Zero	Soil
+2	2	5.245	Zero	Rhizo
+3	4	5	Zero	Soil
+4	5	4.9025	Zero	Soil
+5	0	4.9	Zero	Rhizo
+6	2	4.85	Zero	Rhizo
+7	4	4.845	Zero	Rhizo
+8	5	5.1375	Zero	Soil
+9	0	5.17	High	Soil
+10	2	5.0425	High	Soil
+11	4	5.3025	High	Rhizo
+12	5	5.155	High	Rhizo
+13	6	5.6275	High	Soil
+14	0	5.8	High	Soil
+15	2	5.9	High	Soil
+16	4	6.0	High	Rhizo
+17	5	7.2	High	Rhizo
+18	6	6.5	High	Soil
+
+# read in data
+
+d <- read.table("scatter.txt", sep = "\t", row.names=1, header=T)
+
+## plot using ggplot here
+## aes(factor(what you want on x axis), whatyouwantonYaxis, fill=factor(treatmentForEg))
+
+ggplot(d, aes(as.factor(Week), pH, fill = factor(Treatment))) +
+  
+  ## + geom_boxplot so it knows what type of plot
+  
+  geom_boxplot() +
+  
+  ## scale_fill_manual to give different from default colour
+  ## name argument gives legend title
+  ## colours: http://sape.inf.usi.ch/quick-reference/ggplot2/colour
+  
+  scale_fill_manual(name = "Lime Treatment", values = c("royalblue2", "green4")) +
+  
+  ## theme_bw() to make background white
+  
+  theme_bw() + 
+  
+  ## specify labels for axes and plot title if required
+  
+  labs(x="Sampling Day", y="pH") +
+  
+  ## change text size and placing of axes and titles
+  ## ensure , at end of each line 
+  ## legend.key.size changes size of legend and required 'grid' package to be loaded for unit() to work
+  
+  theme(axis.text.x=element_text(size=12, vjust=0.5), 
+        axis.text.y=element_text(size=12, vjust=0.5),
+        axis.title.x=element_text(size=16, vjust=0.25, face = "bold"),
+        axis.title.y=element_text(size=16, vjust=1, face = "bold"),
+        legend.title=element_text(size=16, vjust=1),
+        legend.text=element_text(size=15, vjust=0.5),
+        legend.key.size=unit(1.5, "cm")
+  ) 
+
+
+
+
+## Links used to make this code:
+## for most:
+## http://docs.ggplot2.org/0.9.3.1/geom_boxplot.html
+## For changing themes, usual cheat sheet and this:
+## http://docs.ggplot2.org/current/theme.html
+## how to change colours: 
+## http://stackoverflow.com/questions/8320462/ggplot2-how-to-adjust-fill-colour-in-a-boxplot-and-change-legend-text
+
