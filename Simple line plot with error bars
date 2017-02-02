@@ -1,0 +1,73 @@
+## Simple line plot with error bars
+
+## for error bars used:
+## http://docs.ggplot2.org/0.9.3.1/geom_errorbar.html
+
+# Load ggplot
+
+library(ggplot2)
+
+# read in data change sep as appropriate ('\t' = tab separated)
+
+pH <-read.table("LinePlot with error bars_data.txt", header = TRUE, sep='\t')
+
+# here is what data looks like 
+
+pH
+
+   Week     pH Treatment   variance
+1     0 5.5800      Zero 0.08366600
+2     2 5.2450      Zero 0.02661453
+3     4 5.0000      Zero 0.15785014
+4     5 4.9025      Zero 0.07824907
+5     6 4.9000      Zero 0.06164414
+6     7 4.8500      Zero 0.15774452
+7     0 5.6275      High 0.05121442
+8     2 5.2875      High 0.05359960
+9     4 5.1675      High 0.07203876
+10    5 4.8900      High 0.04020779
+11    6 5.1425      High 0.03750000
+12    7 5.1725      High 0.07846177
+
+
+# Define the top and bottom of the errorbars using + & - variance variable
+
+limits <- aes(ymax = pH + variance, ymin=pH - variance)
+
+# now make plot (called j) of pH against week with colour of points changing according to Treatment
+
+
+
+j <- ggplot(data=pH, aes(x=Week,y=pH, group=Treatment, colour=Treatment)) +
+  geom_line() +
+  geom_point(size=4, shape=21) +
+  ## add error bars
+  geom_errorbar(limits, width=0.25)
+  
+j # print plot
+
+## change from default colours:
+
+## For colour plot using scale_color_brewer using code below instead of scale_colour_grey()
+## change palette from "Set1" if you want to change colours
+## See http://docs.ggplot2.org/current/scale_brewer.html
+## rename plot as j2
+
+j2 <- j + scale_color_brewer(palette="Set1") + 
+	theme_bw() + # remove grey background of plot
+	theme(text = element_text(size=20, color = "black"))
+  
+j2 # print plot and have a look
+
+## now add axis labels and title   
+j3 <- j2 +  labs(title = "pH change with trial time in High & Zero Plots") 
+
+## Editing title to make space beneath it and to change size and font face
+
+j3 + theme(plot.title = element_text(size=20, face="bold", vjust=2))
+
+j3 # print plot
+
+
+
+
