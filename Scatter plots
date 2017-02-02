@@ -1,15 +1,36 @@
 # Scatter plots
 
-# 
+# Example data: (tab separated)
+Week	pH	Treatment	Location
+0	5.58	Zero	Soil
+2	5.245	Zero	Rhizo
+4	5	Zero	Soil
+5	4.9025	Zero	Soil
+0	4.9	Zero	Rhizo
+2	4.85	Zero	Rhizo
+4	4.845	Zero	Rhizo
+5	5.1375	Zero	Soil
+0	5.17	High	Soil
+2	5.0425	High	Soil
+4	5.3025	High	Rhizo
+5	5.155	High	Rhizo
+6	5.6275	High	Soil
 
+# ie four variables: week, pH, treatment, location
 
+# libraries needed:
+
+library(ggplot2)
+
+# read in table from wkdir
 data <- read.table("scatter.txt", header = TRUE, , sep='\t')
 
-k <- ggplot(data, aes(x=Week,y=pH, color = Treatment)) +
-  geom_point(aes(shape=Treatment),
+k <- ggplot(data, aes(x=Week,y=pH, color = Treatment)) + 
+  geom_point(aes(shape=Location),
              size = 4) 
-k
+k # print and check
 
+# change colours 
 k2 <- k + scale_color_brewer(palette="Set1") + theme_bw() + theme(text = element_text(size=12, color = "black"))
 
 ## now add axis labels and title   
