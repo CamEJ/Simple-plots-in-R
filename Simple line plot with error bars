@@ -68,6 +68,9 @@ j3 + theme(plot.title = element_text(size=20, face="bold", vjust=2))
 
 j3 # print plot
 
+## if you are interested in the variance of the samples (eg differences in replicates at each x axis point)
+## then maybe scatterplot could be better way to represent data
+
 
 
 
