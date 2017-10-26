@@ -1,0 +1,36 @@
+# 1 Bar plot without error bars
+
+library(ggplot2)
+
+plot <- ggplot(data, aes(x=OTU, y=LDA, fill=Growth), show_guide=FALSE) +
+# data is the name of your data frame, 
+# put name of column containing the categorical data you want on x axis
+# after aes(x=
+# put name of column containing the variable y axis
+# after aes(y=
+# after fill = put the name of the column containing the variable by which you want your bars coloured
+
+geom_bar(position="dodge",stat="identity") # this arguments tells ggplot you want a bar plot
+#  position_dodge is for creating side-by-side barcharts
+# stat=identitiy tell it you want the height of the bar to be what you defined as your y axis. 
+
+# coord_flip() # add this argument at end if you want a horizontal as opposed to vertical bar plot to flip it 90 deg
+
+## Now to add error bars. 
+# you need to add geom_errorbar() argument where you define your max and min
+# for error bars which are y axis variable + error and yaxis variable - error
+# So if the name of your Y axis column is named 'LDA ' (as in this example)
+and the name of your column with standard deviation in
+is called 'sd' then is would be:
+geom_errorbar(aes(ymin=LDA-se, ymax=LDA+se))
+
+
+## So in total,something like this
+
+plot <- ggplot(data, aes(x=OTU, y=LDA, fill=Growth), show_guide=FALSE) +
+geom_bar(position="dodge",stat="identity") +
+geom_errorbar(aes(ymin=LDA-se, ymax=LDA+se), width=.1) + # add error bars (width argument changes thickness or error bar lines)
+coord_flip() # flip it 90
+
+plot # print and see. 
+
