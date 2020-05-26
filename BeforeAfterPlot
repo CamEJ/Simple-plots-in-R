@@ -1,0 +1,25 @@
+
+## show change before and after a treatment
+
+# here is what data looks like:
+head(df)
+
+#  BorA  Day Tmt        MEAN     SE
+# after 2       control -0.0403 0.0108
+# after 2       digest   0.139  0.0135
+# after 2       slurry   0.402  0.0718
+# after 3       control -0.118  0.0166
+# after 3       digest  -0.0668 0.0263
+# after 3       slurry  -0.0458 0.0811
+
+
+ggplot(df, aes(x=BorA, y=MEAN, colour=Tmt, group=Tmt)) +
+  geom_line(size=1) +
+  geom_errorbar(aes(ymin=MEAN-SE, ymax=MEAN+SE), width=.05) +
+  geom_point(size=3,color='black', shape=21, aes(fill=Tmt)) +
+  facet_wrap(~fullDay, scales="free_y",ncol=1)
+  
+  
+
+
+# http://www.cookbook-r.com/Graphs/Bar_and_line_graphs_(ggplot2)/
